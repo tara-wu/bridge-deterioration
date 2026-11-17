@@ -1,0 +1,30 @@
+name: bridge_deterioration
+version: "0.1.0"
+profile: bridge_deterioration
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+vars:
+  state_fips: "13"          # Georgia
+  # Condition classes follow 23 CFR 490: the lowest of items 58, 59, 60, 62.
+  good_min_rating: 7
+  poor_max_rating: 4
+
+models:
+  bridge_deterioration:
+    staging:
+      +materialized: view
+      +schema: staging
+    marts:
+      +materialized: table
+      +schema: marts
+
+seeds:
+  bridge_deterioration:
+    +schema: reference
+    material_kinds:
+      +column_types:
+        material_code: varchar

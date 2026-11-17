@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: bridge_year
+    description: >
+      One row per Georgia highway bridge per NBI year (record type 1).
+      condition_class follows 23 CFR 490: Good if the lowest of the deck,
+      superstructure, substructure and culvert ratings is 7 or more, Poor if it
+      is 4 or less, Fair otherwise.
+    columns:
+      - name: bridge_year_id
+        description: structure_id and record_year joined; the grain of the table.
+        data_tests: [unique, not_null]
+      - name: structure_id
+        data_tests: [not_null]
+      - name: record_year
+        data_tests: [not_null]
+      - name: condition_class
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Good', 'Fair', 'Poor', 'Unknown']
+      - name: lowest_rating
+        data_tests:
+          - value_between:
+              arguments: {min_value: 0, max_value: 9}
+      - name: material_code
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('material_kinds')
+                field: material_code
+              config: {severity: warn}
+      - name: age_years
+        description: Negative ages mean a year_built after the file year (a coding error).
+        data_tests:
+          - value_between:
+              arguments: {min_value: 0, max_value: 250}
+              config: {severity: warn}
+      - name: latitude
+        description: Georgia spans roughly 30.3 to 35.0 degrees north.
+        data_tests:
+          - value_between:
+              arguments: {min_value: 30.0, max_value: 35.5}
+              config: {severity: warn}
+      - name: longitude
+        data_tests:
+          - value_between:
+              arguments: {min_value: -86.0, max_value: -80.5}
+              config: {severity: warn}
+      - name: lines_in_year
+        description: Raw lines for this bridge in this year; above 1 means duplicates were dropped.
+        data_tests:
+          - value_between:
+              arguments: {min_value: 1, max_value: 1}
+              config: {severity: warn}

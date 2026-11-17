@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: nbi
+    description: >
+      FHWA National Bridge Inventory yearly files, sliced into text columns by
+      src/nbi/load.py and otherwise untouched.
+    schema: raw
+    tables:
+      - name: nbi_records
+        description: One row per line of each yearly state file.
+        columns:
+          - name: record_year
+            data_tests: [not_null]
+          - name: source_file
+            data_tests: [not_null]
+          - name: structure_number
+            data_tests: [not_null]

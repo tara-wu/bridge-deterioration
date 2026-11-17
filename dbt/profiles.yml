@@ -1,0 +1,8 @@
+bridge_deterioration:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      # Relative to the dbt/ folder. CI points this at a small fixture database.
+      path: "{{ env_var('NBI_DUCKDB_PATH', '../data/warehouse/nbi.duckdb') }}"
+      threads: 4

@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_nbi__records
+    description: Every raw NBI line, trimmed and typed. Ratings of 'N' become null.
+    columns:
+      - name: record_year
+        data_tests:
+          - not_null
+          - value_between:
+              arguments: {min_value: 1992, max_value: 2025}
+      - name: deck_rating
+        data_tests:
+          - value_between:
+              arguments: {min_value: 0, max_value: 9}
+      - name: superstructure_rating
+        data_tests:
+          - value_between:
+              arguments: {min_value: 0, max_value: 9}
+      - name: substructure_rating
+        data_tests:
+          - value_between:
+              arguments: {min_value: 0, max_value: 9}
+      - name: culvert_rating
+        data_tests:
+          - value_between:
+              arguments: {min_value: 0, max_value: 9}
+      - name: inspection_month
+        data_tests:
+          - value_between:
+              arguments: {min_value: 1, max_value: 12}
+              config: {severity: warn}

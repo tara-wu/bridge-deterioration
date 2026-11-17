@@ -1,0 +1,29 @@
+[project]
+name = "bridge-deterioration"
+version = "0.1.0"
+description = "Which Georgia bridges in Fair condition will fall to Poor within five years?"
+requires-python = ">=3.11"
+dependencies = [
+    "duckdb>=1.1",
+    "dbt-core>=1.10",       # test syntax in dbt/models uses `arguments:` (1.10+)
+    "dbt-duckdb>=1.9",
+    "pandas>=2.2",
+    "requests>=2.32",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100

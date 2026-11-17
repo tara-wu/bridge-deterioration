@@ -1,0 +1,11 @@
+material_code,material_name,material_group
+1,Concrete,Concrete
+2,Concrete continuous,Concrete
+3,Steel,Steel
+4,Steel continuous,Steel
+5,Prestressed concrete,Prestressed concrete
+6,Prestressed concrete continuous,Prestressed concrete
+7,Wood or timber,Timber
+8,Masonry,Other
+9,"Aluminum, wrought iron, or cast iron",Other
+0,Other,Other
